@@ -20,10 +20,12 @@ class VehiculoViewSet(viewsets.ModelViewSet):
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
 
-    @action(detail=True, methods=['GET'])
+    @action(detail=False, methods=['GET'])
     def vehiculos_por_marca(self, request, pk=None):
+        nombre_marca = request.query_params.get('nombre', None)
+
         try:
-            marca = Marca.objects.get(nombre=pk)
+            marca = Marca.objects.get(nombre=nombre_marca)
             vehiculos = Vehiculo.objects.filter(marca=marca)
             serializer = VehiculoSerializer(vehiculos, many=True)
             return Response(serializer.data)
