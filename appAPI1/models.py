@@ -21,9 +21,15 @@ class Vehiculo(models.Model):
         ('Verde', 'Verde'),
     )
 
+    MARCA_CHOICES = (
+        ('Audi', 'Audi'),
+        ('BMW', 'BMW'),
+        ('Renault', 'Renault'),
+    )
+
     tipo_vehiculo = models.CharField(max_length=50, choices=TIPO_CHOICES)
     chasis = models.CharField(max_length=50, unique=True)
-    marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
+    marca = models.ForeignKey(Marca, on_delete=models.CASCADE, choices=MARCA_CHOICES)
     modelo = models.CharField(max_length=50)
     matricula = models.CharField(max_length=7, unique=True)
     color = models.CharField(max_length=50, choices=COLOR_CHOICES)

@@ -6,6 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
+from django.core.exceptions import ObjectDoesNotExist
 
 class MarcaViewSet(viewsets.ModelViewSet):
     queryset = Marca.objects.all()
@@ -16,10 +17,15 @@ class MarcaViewSet(viewsets.ModelViewSet):
 class VehiculoViewSet(viewsets.ModelViewSet):
     queryset = Vehiculo.objects.all()
     serializer_class = VehiculoSerializer
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
     @action(detail=True, methods=['GET'])
     def vehiculos_por_marca(self, request, pk=None):
-        marca = Marca.objects.get(pk=pk)
-        vehiculos = Vehiculo.objects.filter(marca=marca)
-        serializer = VehiculoSerializer(vehiculos, many=True)
-        return Response(serializer.data)
+        try:
+            marca = Marca.objects.get(nombre=pk)
+            vehiculos = Vehiculo.objects.filter(marca=marca)
+            serializer = VehiculoSerializer(vehiculos, many=True)
+            return Response(serializer.data)
+        except ObjectDoesNotExist:
+            return Response({'error': 'La marca no existe'})
