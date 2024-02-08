@@ -21,7 +21,7 @@ class VehiculoViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     @action(detail=False, methods=['GET'])
-    def vehiculos_por_marca(self, request, pk=None):
+    def vehiculos_por_marca(self, request):
         nombre_marca = request.query_params.get('nombre', None)
 
         try:
@@ -31,3 +31,27 @@ class VehiculoViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
         except ObjectDoesNotExist:
             return Response({'error': 'La marca no existe'})
+
+    @action(detail=False, methods=['GET'])
+    def vehiculos_por_fecha(self, request):
+        vehiculos = Vehiculo.objects.all().order_by('fecha_matriculacion')
+        serializer = VehiculoSerializer(vehiculos, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['GET'])
+    def filtrar_vehiculos(self, request):
+        marca = request.query_params.get('marca', None)
+        modelo = request.query_params.get('modelo', None)
+        color = request.query_params.get('color', None)
+
+        kwargs = {}
+        if marca:
+            kwargs['marca__nombre'] = marca
+        if modelo:
+            kwargs['modelo__icontains'] = modelo
+        if color:
+            kwargs['color'] = color
+
+        vehiculos = Vehiculo.objects.filter(**kwargs)
+        serializer = VehiculoSerializer(vehiculos, many=True)
+        return Response(serializer.data)

@@ -16,9 +16,9 @@ class Vehiculo(models.Model):
     )
 
     COLOR_CHOICES = (
-        ('Rojo', 'Rojo'),
-        ('Azul', 'Azul'),
-        ('Verde', 'Verde'),
+        ('rojo', 'rojo'),
+        ('azul', 'azul'),
+        ('verde', 'verde'),
     )
 
     tipo_vehiculo = models.CharField(max_length=50, choices=TIPO_CHOICES)

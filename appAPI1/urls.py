@@ -6,6 +6,8 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 router = routers.DefaultRouter()
 router.register(r'marcas', MarcaViewSet)
 router.register(r'vehiculos', VehiculoViewSet)
+router.register(r'vehiculos_por_fecha', VehiculoViewSet, basename='vehiculos-por-fecha')
+router.register(r'filtrar_vehiculos', VehiculoViewSet, basename='filtrar-vehiculos')
 
 urlpatterns = [
     path('', include(router.urls)),
