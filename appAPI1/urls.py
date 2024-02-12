@@ -6,8 +6,8 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 router = routers.DefaultRouter()
 router.register(r'marcas', MarcaViewSet)
 router.register(r'vehiculos', VehiculoViewSet)
-router.register(r'vehiculos_por_fecha', VehiculoViewSet, basename='vehiculos-por-fecha')
-router.register(r'filtrar_vehiculos', VehiculoViewSet, basename='filtrar-vehiculos')
+# router.register(r'vehiculos_por_fecha', VehiculoViewSet, basename='vehiculos-por-fecha')
+# router.register(r'filtrar_vehiculos', VehiculoViewSet, basename='filtrar-vehiculos')
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -16,4 +16,7 @@ urlpatterns = [
     # Optional UI:
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    # path('api/vehiculos/por_fecha_fabricacion/', VehiculoViewSet.as_view({'get': 'vehiculos_por_fecha_fabricacion'}), name='vehiculos_por_fecha_fabricacion'),
+    # path('api/vehiculos/por_fecha_matriculacion/', VehiculoViewSet.as_view({'get': 'vehiculos_por_fecha_matriculacion'}), name='vehiculos_por_fecha_matriculacion'),
+    # path('api/vehiculos/filtrados/', VehiculoViewSet.as_view({'get': 'vehiculos_filtrados'}), name='vehiculos_filtrados'),
 ]
