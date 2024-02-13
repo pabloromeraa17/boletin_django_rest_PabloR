@@ -1,4 +1,8 @@
 # boletin_django_rest_PabloR  
+django-admin startproject mysite .  
+python manage.py migrate  
+python manage.py startapp blog  
+
 Actividad número 1 del boletín de Django Rest  
 $ python ./manage.py spectacular --color --file schema.yml  
 $ docker run -p 80:8080 -e SWAGGER_JSON=/schema.yml -v ${PWD}/schema.yml:/schema.yml swaggerapi/swagger-ui  

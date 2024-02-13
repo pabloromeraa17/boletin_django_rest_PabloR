@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'drf_spectacular_sidecar',
     'django_filters',
     'act1boletinREST',
-    'appAPI1'
+    'appAPI1',
+    'appAPI2'
 ]
 
 MIDDLEWARE = [
